@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    recipeSumary: {
+    recipeSummary: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
@@ -29,5 +29,12 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    origin:{
+      type: DataTypes.STRING,
+      validate:{
+        in: [["Data Base", "External API"]]
+      },
+      allowNull: false,
+    }
   });
 };

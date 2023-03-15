@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
     name:{
         type: DataTypes.STRING,
         validate: {
-            in:[["vegetarian", "vegan" , "glutenFree","dairyFree"]]
+            in:[["vegetarian", "vegan" , "glutenFree","dairyFree", "Ketogenic", "Lacto-Vegetarian", "Ovo-Vegetarian", "Pescetarian", "Paleo", "Primal", "Low FODMAP", "Whole30"]]
          },
         alloNull: false,
     },
