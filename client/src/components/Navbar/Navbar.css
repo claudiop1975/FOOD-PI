@@ -1,0 +1,54 @@
+/* este modulo estilizara al componente Navbar que será un componente estatico independientemente del scroll de la pantalla del usuario. */
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-image: url(../../img/NAVBAR-FONDO.jpeg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar:hover {
+  background-image: url(../../img/NAVBAR-FONDO.jpeg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 2px 4px rgb(30, 255, 0);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.h1Title {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+.h1Title:hover {
+  color: #046c81;
+  text-decoration: none;
+}
+.h2Title{
+  color: #60a301e4;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+};
+.h2Title:hover {
+  color: #030439;
+  text-decoration: underline;
+}

@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Zen+Antique&display=swap");
+
+.footContainer {
+    padding-top: 20px;
+}
+
+.linksCont {
+    border: 1px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: white;
+}
+
+.credits {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: "Zen Antique", serif;
+    font-size: 25px;
+    color: white;
+    background-color: black;
+}
+
+.footIcons {
+    border: 1px solid rgb(126, 121, 121);
+    width: 50px;
+    padding-right: 10px;
+    align-self: center;
+}

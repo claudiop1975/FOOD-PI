@@ -2,14 +2,16 @@
 require('dotenv').config();
 const axios = require('axios');
 const { API_KEY } = process.env;
+// const {dataFake} = require('./dataFake.js');
 
 
 const getRecipeByIdFromAPI = async (idRecipe) => {
-    // const { idRecipe } = req.params
     // let idRecipe = 782585;
     // console.log(process.env)
     try {
         const { data } = await axios.get(`https://api.spoonacular.com/recipes/${idRecipe}/information?apiKey=${API_KEY}`)
+        // const data = dataFake;
+        // console.log(data);
         const pasos = data.analyzedInstructions[0]?.steps
         const pasos2= pasos.map(el => el.step) 
         let Recipe= { 
@@ -20,7 +22,7 @@ const getRecipeByIdFromAPI = async (idRecipe) => {
             healthScore: data.healthScore,
             diets: data.diets.map(el => el),
             stepByStep: pasos2,
-            origin: "External API"
+            
         }
         // console.log(Recipe);
         return Recipe;

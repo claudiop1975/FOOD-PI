@@ -3,12 +3,15 @@ const recipesRoutes = Router();
 const  {getById}  = require('../controllers/getById.js');
 const  {getByName}  = require('../controllers/getByName.js');
 const  {postRecipes}  = require('../controllers/postRecipes.js');
+const {getAllRecipes} = require('../controllers/getAll.js');
+
+recipesRoutes.get('/all', getAllRecipes)
 
 
 recipesRoutes.get('/:idRecipe', getById);
 
 
-recipesRoutes.get('/name?=', getByName)
+recipesRoutes.get('/', getByName)
 // ?Esta ruta obtiene la lista de recetas que coincidan con el nombre recibido por query. (No es necesario que sea
 //?  una coincidencia exacta). Debe poder buscarla independientemente de mayúsculas o minúsculas. Si no existe la 
 //? receta, debe mostrar un mensaje adecuado. Debe buscar tanto las de la API como las de la base de datos.')
@@ -17,7 +20,7 @@ recipesRoutes.get('/name?=', getByName)
 // ? ESTA FUNCIÓN LLAMARÁ A UN FUNCIÓN  (CONTROLADOR?)QUE EMPATE Y UNIFIQUE AMBAS RESPUESTAS PARA ENVIARLAS AL CLIENTE
 
 
-recipesRoutes.post('/recipes', postRecipes)
+recipesRoutes.post('/post', postRecipes)
 
 
 // ? Esta ruta recibirá los datos recolectados desde el formulario controlado de la ruta de creación de recetas por body.

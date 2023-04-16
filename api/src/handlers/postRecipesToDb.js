@@ -1,27 +1,30 @@
 const { Recipe, Diets } = require('../db.js');
 
-const postRecipesToDb = async (name, image, recipeSummary, healthScore, stepByStep, diets) => {
+const postRecipesToDb = async ({name, image, recipeSummary, healthScore, stepByStep}, diets) => {
+   
     try {
         const recipe = await Recipe.create({
             name,
             image,
             recipeSummary,
             healthScore,
-            stepByStep,
-            diets,
-            origin: "Data Base"
+            stepByStep,        
         })
-        diets.foreach(async diet => {
-            const dietFound = await Diets.findOne({
-                where: {
-                    name: diet
-                }
-            })
+       
+
+
+        
+        diets.map(async diet => {
+            const dietFound = await Diets.findByPk(diet)
             await recipe.addDiets(dietFound)
-        })
-        return recipe;
+            
+            })
+        
+        return {...recipe.dataValues, diets}
+        
     }catch(err){
         return err;
+        // console.log(err);//*BORRAR
     }
 };
 

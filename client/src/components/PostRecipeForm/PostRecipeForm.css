@@ -1,0 +1,35 @@
+
+.title__form{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-decoration: underline;
+};
+.form__general{
+    display: inline-grid;
+    text-align: left;
+    background-color: #7beac594;
+    width: 70vw;
+    height: 80vh;
+    padding: 1rem;
+};
+
+.label{
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: underline;
+};
+.input__form{
+    text-align: left;
+};
+.input__diet{
+    text-align: left;
+};
+.label__diet{
+    text-align: left;
+};
+.button{
+    text-align: center;
+};

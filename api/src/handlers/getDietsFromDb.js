@@ -1,4 +1,4 @@
-//const { sequelize } = require('sequelize');
+// const { sequelize } = require('sequelize');
 const url100 = require('./get100RecipesFromAPI.js');
 const { Diets } = require('../db.js');
 
@@ -28,20 +28,26 @@ const getDietsFromApiToDb= async () => {
 }
 getDietsFromApiToDb();
 
+
+
 //* Ya cargados los ratos que trajimos de url100, en la tabla Diets de la base de datos,
 //* ahora vamos a crear una función que traiga y devuelva en un ARRAY, esos datos desde 
 //* la base de datos a través de sequelize. 
 
-const getDietsFromDb = async () => {
+// console.log('POR ENTRAR a getDietsFromDb');
+const getDietsFromDb = async (req, res) => {
+    // console.log('ENTRO a getDietsFromDb');
     try {
         const diets = [];
         const dietsDB = await Diets.findAll();
         dietsDB.forEach(el => {
             diets.push(el.name);
+            // console.log(el.name);
         });        
-        res.status(200).json(diets);
+        // console.log(diets);
+        res.status(200).send(diets);
     } catch (error) {
-        res.status(404).json({error: 'Diets not found in the database'});        
+        res.status(404).send({error: 'Diets not found in the database'});        
     }
 }
 

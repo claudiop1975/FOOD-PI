@@ -1,0 +1,47 @@
+.homeButton__container{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    position: absolute;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction: column;
+    z-index: 100;
+    
+}
+button{
+    font-size: 20px;
+    font-weight: 200px;
+    z-index: 100;
+    color:#e03b3b;
+    margin-bottom: 30px;
+    margin-top: 80px;
+}
+
+button::after{
+    display: block;
+    width: 30%;
+    height: 10px;
+    content: "";
+    margin: auto;
+    background: #fff;
+}
+@media screen and (max-width: 800px){
+    button{
+        font-size: 50px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    button{
+        font-size: 30px;
+        margin-bottom: 0;
+    }
+
+    button::after{
+        display: none;
+    }
+}

@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      
     },
     image: {
       type: DataTypes.STRING,
@@ -28,16 +28,10 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     stepByStep: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
-    origin:{
-      type: DataTypes.STRING,
-      validate:{
-        in: [["Data Base", "External API"]]
-      },
-      allowNull: false,
-    }
+   
   });
   
 };

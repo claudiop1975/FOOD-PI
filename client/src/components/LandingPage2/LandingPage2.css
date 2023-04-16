@@ -1,0 +1,14 @@
+.video__container {
+    margin: 0px;
+    padding: 0px;
+    box-sizing:border-box;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: #000;
+}
+.video__source {
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+}

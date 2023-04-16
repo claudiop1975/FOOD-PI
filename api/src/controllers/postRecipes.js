@@ -9,12 +9,19 @@ const { getByName } = require('../controllers/getByName.js');
 
 const postRecipes = async (req, res, next) => {
     const { name, image, recipeSummary, healthScore, stepByStep, diets } = req.body;
-    if (await getByName(name)) {
-        res.send('Recipe already exists')
-    } else {
-        await postRecipesToDb(name, image, recipeSummary, healthScore, stepByStep, diets)
-        res.send('Recipe created successfully')
-    }
+    //* if (!name.length>0 && !image.length>0 && !recipeSummary.length>=1 && !healthScore && !stepByStep.length>=1, !diets.length>0) res.send("Please COMPLETE all fields");
+    // if (await getByName(name)) {
+    //     res.send('Recipe already exists')
+    // } else {
+        try {
+            const newRecipe= await postRecipesToDb({name, image, recipeSummary, healthScore, stepByStep}, diets )
+            if (newRecipe.idRecipe) res.status(201).send(newRecipe)
+            else res.status(400).send(newRecipe)
+            
+        } catch (error) {
+            
+        }
+    
 }
 
 module.exports = {postRecipes};

@@ -1,0 +1,61 @@
+.detailedCard{
+    width: 80vw;
+    height: 80vh;
+    background-color: #131111;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(204, 248, 133, 0.593);
+    display: inline-table;
+    padding: 20px;
+    margin: 20px 0;
+};
+.imageContainer{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+};
+/* .img{
+    border: inset 0.5rem;
+color: chartreuse;
+border-radius: 15rem;
+}; */
+.card__content{
+    color: coral;
+};
+
+
+.card__id{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: aqua
+};
+.card__name{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color : khaki
+};
+.summary{
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+
+};
+.healthscore{
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+};
+.steps{
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+};
+.diets{
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+};
+

@@ -1,0 +1,13 @@
+.home{
+    background-image: url(../../img/bg_12.jpg);
+    background-size: cover;
+    background-repeat:repeat-x;
+    background-color: #120f0f;
+    height: 100vh;
+    width: 100vw;
+    color: #c8ff84d3;
+    /* display: flex;
+    flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+};

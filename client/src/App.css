@@ -1,8 +1,25 @@
 .App {
+  height: 100%;
+  width: 100%;
   text-align: center;
+  background-image: url(./img/bg_12.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #120f0f;
+ 
 }
 
-.App-logo {
+
+
+
+
+
+
+
+
+
+
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -35,4 +52,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

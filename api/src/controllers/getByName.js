@@ -1,29 +1,23 @@
-const { getRecipeByNameFromAPI } = require('../handlers/getRecipeByNameFromAPI.js');
-const { getRecipeByNameFromDb } = require('../handlers/getRecipeByNameFromDb.js');
+// const  {getAllRecipes} = require('../controllers/getAll.js');
+const url100 = require('../handlers/get100RecipesFromAPI.js');
+const { getAllRecipesFromDb } = require('../handlers/getAllRecipesFromDb.js');
 
 
 const getByName = async (req, res) => {
+    
     const { name } = req.query;
-    const queryRecipes = [];
+    
     try {
-        if (name) {
-            const recipesFromAPI = await getRecipeByNameFromAPI(name);
-            const recipesFromDb = await getRecipeByNameFromDb(name);
-            if (recipesFromAPI.length) {
-                queryRecipes.push(...recipesFromAPI);
-            }
-            if (recipesFromDb.length) {
-                queryRecipes.push(...recipesFromDb);
-            }
-            if (queryRecipes.length) {
-                return res.status(200).json(queryRecipes);
-            }
-            
-        }
-    } catch (err) {
-        return res.status(404).json({ message: 'No se encontró ninguna receta con ese nombre' });
-    }
+        const recipesFromApi = await url100();
+        const recipesFromDb = await getAllRecipesFromDb();
+        const AllRecipes = recipesFromApi.concat(recipesFromDb);
+        const recipesByName = AllRecipes.filter((recipe) => recipe.name.toLowerCase().includes(name.toLowerCase()));
+        res.status(200).send(recipesByName);
 
+    }
+    catch (err) {
+        res.status(500).send(err.message);
+    }
 };
 
 module.exports = { getByName };

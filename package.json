@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "s": "^1.0.0",
+    "styled-components": "^5.3.9"
+  }
+}

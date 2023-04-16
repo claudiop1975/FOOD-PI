@@ -1,0 +1,30 @@
+.cardSimple{
+    border: 6px solid #c8ff84d3;
+    border-radius: 1rem;
+    width: 20vw;
+    height: 60vh;
+};
+
+.cardImage{
+    display: contents;
+    height: 30%;
+    width: 21vh; 
+    border: solid 4px #c8ff84d3;
+};
+.imgInd{
+    width: 150px;
+    height: auto;
+    object-fit: cover;
+};
+
+.p {
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    color: darksalmon;
+};
+.ul__li{
+    text-decoration: none;
+    text-align: justify;
+    
+};
