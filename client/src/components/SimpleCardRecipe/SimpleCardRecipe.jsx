@@ -10,7 +10,7 @@ const SimpleCardRecipe = ({ recipe }) => {
     //*ESTE COMPOENTE DEBE TENER UNA FUNCIÓN handleClick QUE TOME EL idRecipe DE LA RECETA
     //*Y PASAR ESE ID AL COMPONENTE DetailedCardRecipe PARA QUE MUESTRE LA RECETA CON ESE ID
     //*Y TODOS LOS ATRIBUTOS DE LA RECETA CON ESE ID.
-    const idRecipe = recipe.id;
+    const idRecipe = recipe.idRecipe;
     
     return (
         <div className="cardSimple">
