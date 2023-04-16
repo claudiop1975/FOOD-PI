@@ -15,13 +15,11 @@ const DetailedCardRecipe = () => {
     const { idRecipe } = useParams();
     const dispatch = useDispatch();
     const recipeRedux = useSelector((state) => state.recipeDetail);
-    useEffect(() => {
-        dispatch(getRecipesById(idRecipe))
-    }, [dispatch, idRecipe])
+    useEffect(() => {dispatch(getRecipesById(idRecipe))}, 
+    [dispatch, idRecipe])
 
-    useEffect(() => {
-        setRecipe(recipeRedux)
-    }, [recipeRedux]);
+    useEffect(() => {setRecipe(recipeRedux)}, 
+    [recipeRedux]);
 
 
     return (
