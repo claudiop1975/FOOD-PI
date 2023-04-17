@@ -33,3 +33,13 @@
 .button{
     text-align: center;
 };
+ul li{
+    list-style: none;
+    text-align: left;
+    font-size: .5rem;
+    font-weight: 500;
+    color: #ffffff;
+    text-decoration: underline;
+};
+
+};

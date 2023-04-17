@@ -15,19 +15,20 @@ const TextArea = styled.textarea`font-size: 1em;color: #0000007d;-webkit-text-st
 const PostRecipeForm = () => {
 
     const dispatch = useDispatch();
-    // const diets = useSelector(state => state.diets);
+    //const diets = useSelector(state => state.diets);
     const [checked, setChecked] = useState([]);
     const [input, setInput] = useState({
         name: '',
         recipeSummary: '',
         healthScore: 0,
-        stepsByStep: '',
+        stepsByStep: [],
         image: '',
         diets: []
     });
     const [errors, setErrors] = useState({});
 
-
+    const [steps, setSteps] = useState([]);
+    const [stepInput, setStepInput] = useState("");
 
     const handleInputChange = (e) => {
         setInput({
@@ -43,19 +44,24 @@ const PostRecipeForm = () => {
 
     const handleCheckboxChange = (e) => {
         // console.log(checked);
-        if (e.target.checked) {
+       const cosoquedijoclaudio =(e)=>{
+         if (e.target.checked) {
             setChecked([...checked, e.target.value]);
+            return [...checked, e.target.value]
         } else {
             setChecked(checked.filter(diet => diet !== e.target.value));
+         return checked.filter(diet => diet !== e.target.value)
         }
+       }
+       
         setInput({
             ...input,
-            diets: checked
+            diets: cosoquedijoclaudio(e)
         });
-        setErrors(validate({
+         setErrors(validate({
             ...input,
-            diets: checked
-        }));
+            diets:cosoquedijoclaudio(e)
+        })); 
         console.log(errors);
     };
 
@@ -71,7 +77,7 @@ const PostRecipeForm = () => {
                 name: '',
                 recipeSummary: '',
                 healthScore: 0,
-                stepsByStep: '',
+                stepsByStep: [],
                 image: '',
                 diets: []
             });
@@ -100,11 +106,11 @@ const PostRecipeForm = () => {
         } else if (input.healthScore < 0 || input.healthScore > 100) {
             errors.healthScore = 'Health Score must be between 0 and 100';
         }
-        if (!input.stepByStep) {
+  /*       if (!input.stepByStep.length) {
             errors.stepByStep = 'Steps is required';
-        } else if (input.stepByStep.length < 120) {
-            errors.stepByStep = 'Steps must contain at least 1120 characters';
-        }
+        } else if (input.stepByStep.length < 3) {
+            errors.stepByStep = 'Steps must contain at least 3 steps';
+        } */
         if (!input.image) {
             errors.image = 'Image is required';
         } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(input.image)) {
@@ -116,21 +122,20 @@ const PostRecipeForm = () => {
 
         return errors;
     };
-    let steps = [];
+
 
     function addToSteps() {
-        const input = document.getElementById("steps").value;
-        steps.push(input);
-        updateList();
+
+        setSteps([...steps, stepInput])
+        setInput({
+            ...input,
+            stepByStep: [...steps, stepInput]
+        })
+        setStepInput('')
     }
-    function updateList() {
-        const list = document.getElementById("stepList");
-        list.innerHTML = "";
-        steps.forEach((item) => {
-            const li = document.createElement("li");
-            li.innerText = item;
-            list.appendChild(li);
-        });
+    function handleStep(e) {
+
+        setStepInput(e.target.value)
     }
 
     return (
@@ -156,43 +161,45 @@ const PostRecipeForm = () => {
 
                 {/* <Label>Steps</Label>
                 <TextArea type='text' name='stepByStep' value={input.stepByStep} onChange={handleInputChange} />
-                {errors.stepByStep && <p>{errors.stepByStep}</p>} */}
+                 */}
 
 
-                <input type="text" id="steps"/>
-                <button onclick={addToSteps()}>Add Step</button>
-                <ul id="StepList"></ul>
+                <input type="text" value={stepInput} onChange={handleStep} id="steps" />
+                <button type='button' onClick={addToSteps}>Add Step</button>
+                <ul id="StepList">{steps.map((step, index) => <li>{`Paso ${index + 1}`} - {step}</li>)}</ul>
+                {errors.stepByStep && <p>{errors.stepByStep}</p>}
 
 
+                <Label>Image</Label>
+                <input type='text' name='image' value={input.image} onChange={handleInputChange} />
+                {errors.image && <p>{errors.image}</p>}
 
-                    <Label>Image</Label>
-                    <input type='text' name='image' value={input.image} onChange={handleInputChange} />
-                    {errors.image && <p>{errors.image}</p>}
-
-                    <Label>Diets</Label>
-                    <DivDiet>
-                        <Label >Gluten Free</Label>
-                        <input type="checkbox" name="diets" value="gluten free" onChange={handleCheckboxChange} />
-                        <Label >Ketogenic</Label>
-                        <input type="checkbox" name="diets" value="ketogenic" onChange={handleCheckboxChange} />
-                        <Label >Vegetarian</Label>
-                        <input type="checkbox" name="diets" value="vegetarian" onChange={handleCheckboxChange} />
-                        <Label >Lacto Ovo Vegetarian</Label>
-                        <input type="checkbox" name="diets" value="lacto ovo vegetarian" onChange={handleCheckboxChange} />
-                        <Label>Vegan</Label>
-                        <input type="checkbox" name="diets" value="vegan" onChange={handleCheckboxChange} />
-                        <Label>Pescetarian</Label>
-                        <input type="checkbox" name="diets" value="pescetarian" onChange={handleCheckboxChange} />
-                        <Label>Paleolithic</Label>
-                        <input type="checkbox" name="diets" value="paleo" onChange={handleCheckboxChange} />
-                        <Label>Primal</Label>
-                        <input type="checkbox" name="diets" value="primal" onChange={handleCheckboxChange} />
-                        <Label>Whole30</Label>
-                        <input type="checkbox" name="diets" value="whole30" onChange={handleCheckboxChange} />
-                        {errors.diets && <p>{errors.diets}</p>}
-                    </DivDiet>
-                    <br />
-                    <button type='submit' disable={!(Object.keys(errors).length === 0)}>Create Recipe</button>
+                <Label>Diets</Label>
+                <DivDiet>
+                    <Label >Gluten Free</Label>
+                    <input type="checkbox" name="diets" value="gluten free" onChange={handleCheckboxChange} />
+                    <Label >Ketogenic</Label>
+                    <input type="checkbox" name="diets" value="ketogenic" onChange={handleCheckboxChange} />
+                    <Label >Vegetarian</Label>
+                    <input type="checkbox" name="diets" value="vegetarian" onChange={handleCheckboxChange} />
+                    <Label >Lacto Ovo Vegetarian</Label>
+                    <input type="checkbox" name="diets" value="lacto ovo vegetarian" onChange={handleCheckboxChange} />
+                    <Label>Vegan</Label>
+                    <input type="checkbox" name="diets" value="vegan" onChange={handleCheckboxChange} />
+                    <Label>Pescetarian</Label>
+                    <input type="checkbox" name="diets" value="pescetarian" onChange={handleCheckboxChange} />
+                    <Label>Paleolithic</Label>
+                    <input type="checkbox" name="diets" value="paleolithic" onChange={handleCheckboxChange} />
+                    <Label>Primal</Label>
+                    <input type="checkbox" name="diets" value="primal" onChange={handleCheckboxChange} />
+                    <Label>Whole 30</Label>
+                    <input type="checkbox" name="diets" value="whole 30" onChange={handleCheckboxChange} />
+                    <Label>Fodmap Friendly</Label>
+                    <input type="checkbox" name="diets" value="fodmap friendly" onChange={handleCheckboxChange} />
+                    {errors.diets && <p>{errors.diets}</p>}
+                </DivDiet>
+                <br />
+                <button type='submit' disable={!(Object.keys(errors).length === 0)}>Create Recipe</button>
 
             </Form>
         </>

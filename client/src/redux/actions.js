@@ -77,11 +77,11 @@ export const getRecipesById = (id) => {
 };
 
 export const postRecipe = ({name, image, recipeSummary, healthScore, stepByStep, diets}) => {
-  // console.log(name, image, recipeSummary, healthScore, stepByStep, diets);
-  return async function(dispatch) {
+
+   return async function(dispatch) {
     const {data} = await axios.post('http://localhost:3001/recipes/post', {name, image, recipeSummary, healthScore, stepByStep, diets})
     dispatch({type: POST_RECIPE, payload: data})
     
-  }
+  } 
 };
 

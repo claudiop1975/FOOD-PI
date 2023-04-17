@@ -9,16 +9,16 @@ const {Recipe, Diets} = require('../db.js');
 
 const getRecipeByIdFromDb = async (idRecipe) => {
     try {
-        const recipedb= await Recipe.findOne({include:Diets});
+        const recipedb= await Recipe.findByPk(idRecipe,{include:Diets});
         if (recipedb) {
             let data = {
-                idRecipe: recipedb.idRecipe,
+                id: recipedb.idRecipe,
                 name: recipedb.name,
                 image: recipedb.image,
                 recipeSummary: recipedb.recipeSummary,
                 healthScore: recipedb.healthScore,
                 stepByStep: recipedb.stepByStep,
-                diets: recipedb.diets.map(diet => diet)
+                diets: recipedb.diets.map(diet => diet.name)
             }
             return data;
         }
