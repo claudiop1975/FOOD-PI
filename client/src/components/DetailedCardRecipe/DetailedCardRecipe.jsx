@@ -38,7 +38,7 @@ const DetailedCardRecipe = () => {
                     <div className="card__content">
                         <p style={{ color: " khaki" }}>Sumary: {recipeRedux.recipeSummary}</p>
                         <hr />
-                        <p style={{ color: " khaki" }}>Health Score: {recipe.healthScore}</p>
+                        <p style={{ color: " khaki" }}>Health Score: {recipeRedux.healthScore}</p>
                         <ol style={{ color: " khaki" }}>{recipeRedux.stepByStep?.map((step)=>(
                             <li key={step}>{step}</li>
                         ))}</ol>
