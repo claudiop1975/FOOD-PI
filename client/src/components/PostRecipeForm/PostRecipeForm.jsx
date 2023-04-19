@@ -7,16 +7,11 @@ import { postRecipe } from '../../redux/actions.js';
 import Button from "../Button/Button";
 import styled from 'styled-components';
 const Title = styled.h1`font-size: 2em; text-align: center; color: #83ea7b93; margin-top: .1rem; margin-bottom: .3rem; text-decoration: underline;width: inherit;`;
-const Form = styled.form`display: flex;flex-direction: column;-ms-flex-align: center;-ms-flex-pack: center;margin: 0 auto;width: 50%;height: 100%;background-color: #107c06a6;    border-radius: 10px;box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);padding: 3rem;margin-top: 3rem;align-items: center;justify-content: flex-start;`;
+const Form = styled.form`border: solid .3rem greenyellow; display: flex;flex-direction: column;-ms-flex-align: center;-ms-flex-pack: center;margin: 0 auto;width: 50%;height: 100%;background-color: #107c06a6; border-radius: 1rem; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2); padding: 3rem; margin-top: 3rem; align-items: center; justify-content: flex-start;`;
 const Label = styled.label`font-size: 1em;color: #ffffff7c;-webkit-text-stroke-color: #000000;margin: .5em;`;
 const DivDiet = styled.div`display: -ms-flexbox;display: flex;-ms-flex-direction: row-reverse;flex-direction: row-reverse;-webkit-box-align: center;-ms-flex-align: center;align-items: center;-webkit-box-pack: center;-webkit-justify-content: center;-ms-flex-pack: center;justify-content: center;width: initial;height: fit-content;background-color: #7beac594;border-radius: 10px;box-shadow: 0 0 10px 0 rgb(0 0 0 / 84%);padding: 1.5rem;margin-top: .5rem;margin-bottom: 3 rem;flex-wrap: wrap;align-content: baseline;`;
 const TextArea = styled.textarea`font-size: 1em;color: #0000007d;-webkit-text-stroke-color: #000000;margin: .5em;height:5rem;width: inherit;`;
-const ImageContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-image: ${(props) => `url(${props.imageUrl})`};
+const ImageContainer = styled.div`width: 100%; height: 100%; background-size: cover; background-position: center; background-image: ${(props) => `url(${props.imageUrl})`};
 `;
 
 const images = [
@@ -41,12 +36,8 @@ const PostRecipeForm = () => {
         currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
       setCurrentImageIndex(nextImageIndex);
     };
-    
     // call changeImage to change image after some time
     setTimeout(changeImage, 3000);
-
-
-
 
     const dispatch = useDispatch();
     //const diets = useSelector(state => state.diets);
@@ -63,6 +54,7 @@ const PostRecipeForm = () => {
 
     const [steps, setSteps] = useState([]);
     const [stepInput, setStepInput] = useState("");
+    const [disabled, setDisabled] = useState(true);
 
     const handleInputChange = (e) => {
         setInput({
@@ -73,6 +65,7 @@ const PostRecipeForm = () => {
             ...input,
             [e.target.name]: e.target.value
         }));
+        setDisabled(false);
         // console.log(errors);
     }
 
@@ -115,6 +108,8 @@ const PostRecipeForm = () => {
                 image: '',
                 diets: []
             });
+            setDisabled(true);
+            
             alert('Recipe created successfully!');
         } else {
             alert('Please fill all the fields correctly');
@@ -122,7 +117,7 @@ const PostRecipeForm = () => {
     }
 
     const validate = (data) => {
-        console.log(data.stepByStep);
+        // console.log(data.stepByStep);//*BORRAR
         let errors = {};
 
         if (!data.name) {
@@ -237,7 +232,8 @@ const PostRecipeForm = () => {
                     {errors.diets && <p>{errors.diets}</p>}
                 </DivDiet>
                 <br />
-                <Button text={"Create Recipe"} handleClick={null} type='submit' disable={!(Object.keys(errors).length === 0)}>Create Recipe</Button>
+                {/* <button type='submit' disable={true || !(Object.keys(errors).length === 0)}>Create Recipe</button> */}
+                <button disabled={disabled} onClick={handleInputChange}>Create Recipe</button>
 
             </Form>
         </ImageContainer>
