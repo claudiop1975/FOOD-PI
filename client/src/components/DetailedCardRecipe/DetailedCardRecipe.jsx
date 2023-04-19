@@ -22,7 +22,9 @@ const DetailedCardRecipe = () => {
     useEffect(() => {
         setRecipe(recipeRedux)
     }, [recipeRedux]);
-
+    
+    //* const summaryHtml = document.getElementById("summary");
+    const summary = recipeRedux.recipeSummary;
 
     return (
         
@@ -33,14 +35,19 @@ const DetailedCardRecipe = () => {
                     <p style={{ color: " khaki" }}>Id Recipe: {recipeRedux.id}</p>
                     <h1 style={{ color: " khaki" }}>{recipeRedux.name}</h1>
                     <div>
-                        <img src={recipeRedux.image} alt={recipeRedux.name} style={{width:"20em", height:"20em", border: "inset 0.5rem", color: "chartreuse", "border-radius": "15rem" }} />
+                        <img src={recipeRedux.image} alt={recipeRedux.name} style={{width:"15em", height:"15em", border: "inset 0.5rem", color: "chartreuse", "border-radius": "15rem" }} />
                     </div>
                     <div className="card__content">
-                        <p style={{ color: " khaki" }}>Sumary: {recipeRedux.recipeSummary}</p>
+                        <h3 style={{ color: " khaki", textDecoration:"underline" }}>Recipe Summary</h3>
+                        <div id="summary" dangerouslySetInnerHTML={{ __html: summary }} style={{ color: " khaki" }}></div>
+                        {/* <p style={{ color: " khaki" }}>Recipe Summary: {recipeRedux.recipeSummary}</p> */}
+                        {/* <div id="summary" style={{ color: " khaki" }}>Recipe Summary: {summaryHtml.innerHTML=summary}</div> */}
                         <hr />
                         <p style={{ color: " khaki" }}>Health Score: {recipeRedux.healthScore}</p>
+                        <hr />
+                        <h3 style={{ color: " khaki", textDecoration:"underline" }}>Step by Step</h3>
                         <ol style={{ color: " khaki" }}>{recipeRedux.stepByStep?.map((step)=>(
-                            <li key={step}>{step}</li>
+                            <li style={{textAlign: "initial"}} key={step}> - {step}</li>
                         ))}</ol>
                         <p style={{ color: "greenyellow" }}>Diets Types: {recipeRedux.diets?.map((diet) => (
                             <span key={diet}>{diet}, </span>

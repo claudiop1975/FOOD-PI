@@ -6,13 +6,47 @@ import { postRecipe } from '../../redux/actions.js';
 // import './PostRecipeForm.css';
 import Button from "../Button/Button";
 import styled from 'styled-components';
-const Title = styled.h1`font-size: 2.5em; text-align: center; color: #83ea7b93; margin-top: 3rem; margin-bottom: 3rem; text-decoration: underline;width: inherit;`;
+const Title = styled.h1`font-size: 2em; text-align: center; color: #83ea7b93; margin-top: .1rem; margin-bottom: .3rem; text-decoration: underline;width: inherit;`;
 const Form = styled.form`display: flex;flex-direction: column;-ms-flex-align: center;-ms-flex-pack: center;margin: 0 auto;width: 50%;height: 100%;background-color: #107c06a6;    border-radius: 10px;box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);padding: 3rem;margin-top: 3rem;align-items: center;justify-content: flex-start;`;
 const Label = styled.label`font-size: 1em;color: #ffffff7c;-webkit-text-stroke-color: #000000;margin: .5em;`;
 const DivDiet = styled.div`display: -ms-flexbox;display: flex;-ms-flex-direction: row-reverse;flex-direction: row-reverse;-webkit-box-align: center;-ms-flex-align: center;align-items: center;-webkit-box-pack: center;-webkit-justify-content: center;-ms-flex-pack: center;justify-content: center;width: initial;height: fit-content;background-color: #7beac594;border-radius: 10px;box-shadow: 0 0 10px 0 rgb(0 0 0 / 84%);padding: 1.5rem;margin-top: .5rem;margin-bottom: 3 rem;flex-wrap: wrap;align-content: baseline;`;
 const TextArea = styled.textarea`font-size: 1em;color: #0000007d;-webkit-text-stroke-color: #000000;margin: .5em;height:5rem;width: inherit;`;
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: ${(props) => `url(${props.imageUrl})`};
+`;
+
+const images = [
+    "https://wallpaperscute.com/wp-content/uploads/2020/09/HD-Food-Backgrounds.jpg",
+    "https://getwallpapers.com/wallpaper/full/4/5/c/1184388-beautiful-healthy-food-wallpaper-1920x1080.jpg",
+    "http://www.wallpapers4u.org/wp-content/uploads/cheese_wine_meat_food_vegetables_fruits_70077_1920x1080.jpg",
+    "https://wallpapercave.com/wp/wp5853656.jpg",
+];
+
+
+
+
+
+
 
 const PostRecipeForm = () => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const currentImage = images[currentImageIndex];
+    
+    const changeImage = () => {
+      const nextImageIndex =
+        currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
+      setCurrentImageIndex(nextImageIndex);
+    };
+    
+    // call changeImage to change image after some time
+    setTimeout(changeImage, 3000);
+
+
+
 
     const dispatch = useDispatch();
     //const diets = useSelector(state => state.diets);
@@ -21,7 +55,7 @@ const PostRecipeForm = () => {
         name: '',
         recipeSummary: '',
         healthScore: 0,
-        stepsByStep: [],
+        stepByStep: [],
         image: '',
         diets: []
     });
@@ -39,7 +73,7 @@ const PostRecipeForm = () => {
             ...input,
             [e.target.name]: e.target.value
         }));
-        console.log(errors);
+        // console.log(errors);
     }
 
     const handleCheckboxChange = (e) => {
@@ -62,7 +96,7 @@ const PostRecipeForm = () => {
             ...input,
             diets:cosoquedijoclaudio(e)
         })); 
-        console.log(errors);
+        // console.log(errors);
     };
 
 
@@ -77,7 +111,7 @@ const PostRecipeForm = () => {
                 name: '',
                 recipeSummary: '',
                 healthScore: 0,
-                stepsByStep: [],
+                stepByStep: [],
                 image: '',
                 diets: []
             });
@@ -87,36 +121,36 @@ const PostRecipeForm = () => {
         }
     }
 
-    const validate = (input) => {
-
+    const validate = (data) => {
+        console.log(data.stepByStep);
         let errors = {};
 
-        if (!input.name) {
+        if (!data.name) {
             errors.name = 'Name is required';
-        } else if (input.name.length < 3) {
+        } else if (data.name.length < 3) {
             errors.name = 'Name must contain at least 3 characters';
         }
-        if (!input.recipeSummary) {
+        if (!data.recipeSummary) {
             errors.recipeSummary = 'Summary is required';
-        } else if (input.recipeSummary.length < 120) {
+        } else if (data.recipeSummary.length < 120) {
             errors.recipeSummary = 'Summary must contain at least 120 characters';
         }
-        if (!input.healthScore) {
+        if (!data.healthScore) {
             errors.healthScore = 'Health Score is required';
-        } else if (input.healthScore < 0 || input.healthScore > 100) {
+        } else if (data.healthScore < 0 || input.healthScore > 100) {
             errors.healthScore = 'Health Score must be between 0 and 100';
         }
-  /*       if (!input.stepByStep.length) {
+        if (data.stepByStep.length < 1) {
             errors.stepByStep = 'Steps is required';
-        } else if (input.stepByStep.length < 3) {
+        } else if (data.stepByStep.length < 3) {
             errors.stepByStep = 'Steps must contain at least 3 steps';
-        } */
-        if (!input.image) {
+        } 
+        if (!data.image) {
             errors.image = 'Image is required';
-        } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(input.image)) {
+        } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(data.image)) {
             errors.image = 'Image must be a valid URL';
         }
-        if (input.diets.length < 1) {
+        if (data.diets.length < 1) {
             errors.diets = 'The recipe must have at least one type of diet';
         }
 
@@ -131,6 +165,10 @@ const PostRecipeForm = () => {
             ...input,
             stepByStep: [...steps, stepInput]
         })
+        setErrors(validate({
+            ...input,
+            stepByStep:[...steps, stepInput]
+        }));
         setStepInput('')
     }
     function handleStep(e) {
@@ -140,18 +178,18 @@ const PostRecipeForm = () => {
 
     return (
 
-        <>
+        <ImageContainer imageUrl={currentImage}>
             <Link to='/home'>
                 <Button text='Home' />
             </Link>
-            <Title>Post Recipe</Title>
+            <Title>Recipe Creator</Title>
             <Form onSubmit={handleSubmit}>
 
-                <Label>Name</Label>
+                <Label>Recipe Name</Label>
                 <input type='text' name='name' value={input.name} onChange={handleInputChange} />
                 {errors.name && <p>{errors.name}</p>}
 
-                <Label>Summary</Label>
+                <Label>Recipe Summary</Label>
                 <TextArea type='text' name='recipeSummary' value={input.recipeSummary} onChange={handleInputChange} />
                 {errors.recipeSummary && <p>{errors.recipeSummary}</p>}
 
@@ -165,16 +203,16 @@ const PostRecipeForm = () => {
 
 
                 <input type="text" value={stepInput} onChange={handleStep} id="steps" />
-                <button type='button' onClick={addToSteps}>Add Step</button>
-                <ul id="StepList">{steps.map((step, index) => <li>{`Paso ${index + 1}`} - {step}</li>)}</ul>
+                <button type='button' onClick={addToSteps}>Add Create Steps</button>
+                <ul id="StepList">{steps.map((step, index) => <li key={index}>{`Paso ${index + 1}`} - {step}</li>)}</ul>
                 {errors.stepByStep && <p>{errors.stepByStep}</p>}
 
 
-                <Label>Image</Label>
+                <Label>Recipe Image</Label>
                 <input type='text' name='image' value={input.image} onChange={handleInputChange} />
                 {errors.image && <p>{errors.image}</p>}
 
-                <Label>Diets</Label>
+                <Label>Diets:</Label>
                 <DivDiet>
                     <Label >Gluten Free</Label>
                     <input type="checkbox" name="diets" value="gluten free" onChange={handleCheckboxChange} />
@@ -199,10 +237,10 @@ const PostRecipeForm = () => {
                     {errors.diets && <p>{errors.diets}</p>}
                 </DivDiet>
                 <br />
-                <button type='submit' disable={!(Object.keys(errors).length === 0)}>Create Recipe</button>
+                <Button text={"Create Recipe"} handleClick={null} type='submit' disable={!(Object.keys(errors).length === 0)}>Create Recipe</Button>
 
             </Form>
-        </>
+        </ImageContainer>
     )
 }
 export default PostRecipeForm;

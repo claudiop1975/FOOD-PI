@@ -35,6 +35,9 @@ const reducer = (state = initialState, action) => {
             }
         case 'POST_RECIPE':
             return {
+                ...state,
+                recipes100: [...state.recipes100, action.payload],
+                recipesBackUp: [...state.recipesBackUp, action.payload],
                 posted: action.payload
             }
         case 'GET_DIETS':
